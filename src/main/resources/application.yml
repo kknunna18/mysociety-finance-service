@@ -1,0 +1,46 @@
+server:
+  port: ${SERVER_PORT:8083}
+  servlet:
+    context-path: /api/v1
+spring:
+  application:
+    name: mysociety-finance-service
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/mysociety}
+    username: ${DATABASE_USERNAME:mysociety}
+    password: ${DATABASE_PASSWORD:mysociety}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        default_schema: mysociety
+        jdbc:
+          time_zone: UTC
+    open-in-view: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${JWT_ISSUER:mysociety-identity}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  tracing:
+    sampling:
+      probability: ${TRACING_SAMPLING_PROBABILITY:0.1}
+finance:
+  security:
+    jwt-hmac-secret: ${JWT_HMAC_SECRET:change-me-in-production-change-me}
+    issuer: ${JWT_ISSUER:mysociety-identity}
+  webhook:
+    provider-secrets: ${WEBHOOK_PROVIDER_SECRETS:}
+springdoc:
+  api-docs:
+    path: /openapi
