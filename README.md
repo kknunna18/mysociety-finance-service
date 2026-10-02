@@ -4,7 +4,9 @@ Spring Boot 3 / Java 21 finance backend on port `8083` with base path `/api/v1`.
 
 ## Run
 
-1. Apply the authoritative shared schema from [`mysociety_postgresql_complete.sql`](https://raw.githubusercontent.com/kknunna18/identity-service/main/mysociety_postgresql_complete.sql) to PostgreSQL 16.
+1. Apply the authoritative shared schema from [
+   `mysociety_postgresql_complete.sql`](https://raw.githubusercontent.com/kknunna18/identity-service/main/mysociety_postgresql_complete.sql)
+   to PostgreSQL 16.
 2. Copy `.env.example` into your environment and supply a strong `JWT_HMAC_SECRET`.
 3. Run `gradlew.bat clean build` on Windows, then `gradlew.bat bootRun --args="--spring.profiles.active=local"`.
 
