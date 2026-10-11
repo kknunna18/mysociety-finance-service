@@ -73,6 +73,64 @@ public class Invoice {
         return status;
     }
 
+    public UUID getBillingRunId() {
+        return billingRunId;
+    }
+
+    public String getBillingPeriod() {
+        return billingPeriod;
+    }
+
+    public java.time.LocalDate getInvoiceDate() {
+        return invoiceDate;
+    }
+
+    public java.time.LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public String getCurrencyCode() {
+        return currencyCode;
+    }
+
+    public BigDecimal getSubtotalAmount() {
+        return subtotalAmount;
+    }
+
+    public BigDecimal getTaxAmount() {
+        return taxAmount;
+    }
+
+    public BigDecimal getAdjustmentAmount() {
+        return adjustmentAmount;
+    }
+
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public BigDecimal getPaidAmount() {
+        return paidAmount;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public long getVersion() {
+        return version;
+    }
+
+    public void applyPayment(BigDecimal amount) {
+        paidAmount = paidAmount.add(amount);
+        outstandingAmount = totalAmount.subtract(paidAmount);
+        status = outstandingAmount.signum() == 0 ? "PAID" : "PARTIALLY_PAID";
+    }
+
     @PreUpdate
     void updated() {
         updatedAt = Instant.now();

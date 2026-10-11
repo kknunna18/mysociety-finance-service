@@ -37,7 +37,7 @@ management:
       probability: ${TRACING_SAMPLING_PROBABILITY:0.1}
 finance:
   security:
-    jwt-hmac-secret: ${JWT_HMAC_SECRET:change-me-in-production-change-me}
+    jwt-hmac-secret: ${JWT_HMAC_SECRET:8fK9xP2mQ7vL1zN4rT6yU0aS3dH5jW8c}
     issuer: ${JWT_ISSUER:mysociety-identity}
   webhook:
     provider-secrets: ${WEBHOOK_PROVIDER_SECRETS:}

@@ -41,6 +41,10 @@ public class SecurityConfig {
                 if (value instanceof Collection<?> items)
                     for (Object item : items) authorities.add(new SimpleGrantedAuthority(String.valueOf(item)));
             }
+            String scope = jwt.getClaimAsString("scope");
+            if (scope != null)
+                for (String code : scope.split("\\s+"))
+                    if (!code.isBlank()) authorities.add(new SimpleGrantedAuthority("PERMISSION_" + code));
             return authorities;
         });
         return converter;

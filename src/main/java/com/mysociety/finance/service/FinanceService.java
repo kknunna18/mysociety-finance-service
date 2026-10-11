@@ -53,6 +53,11 @@ public class FinanceService {
         return billingRuns.save(BillingRun.create(t.societyId(), number, period, start, end, due, t.userId()));
     }
 
+    @Transactional(readOnly = true)
+    public Page<BillingRun> runs(TenantContext t, Pageable p) {
+        return billingRuns.findBySocietyId(t.societyId(), p);
+    }
+
     public BillingRun publishRun(TenantContext t, UUID id) {
         BillingRun run = billingRuns.findByIdAndSocietyId(id, t.societyId()).orElseThrow(this::notFound);
         run.publish(t.userId());
@@ -88,6 +93,11 @@ public class FinanceService {
     }
 
     @Transactional(readOnly = true)
+    public Page<PaymentAttempt> payments(TenantContext t, Pageable p) {
+        return payments.findBySocietyId(t.societyId(), p);
+    }
+
+    @Transactional(readOnly = true)
     public PaymentAttempt payment(TenantContext t, UUID id) {
         return payments.findByIdAndSocietyId(id, t.societyId()).orElseThrow(this::notFound);
     }
@@ -97,7 +107,10 @@ public class FinanceService {
         Invoice i = invoice(t, invoiceId);
         if (amount.compareTo(i.getOutstandingAmount()) > 0 || amount.compareTo(p.getRequestedAmount()) > 0)
             throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Allocation exceeds available balance");
-        return allocations.save(PaymentAllocation.create(t.societyId(), paymentId, invoiceId, amount));
+        PaymentAllocation allocation = allocations.save(PaymentAllocation.create(t.societyId(), paymentId, invoiceId, amount));
+        i.applyPayment(amount);
+        if ("CREATED".equals(p.getStatus())) p.confirm("MANUAL-" + p.getPaymentReference(), p.getRequestedAmount());
+        return allocation;
     }
 
     public PaymentAttempt refund(TenantContext t, UUID id) {

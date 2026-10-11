@@ -73,6 +73,42 @@ public class PaymentAttempt {
         return requestedAmount;
     }
 
+    public UUID getUnitId() {
+        return unitId;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public String getCurrencyCode() {
+        return currencyCode;
+    }
+
+    public BigDecimal getConfirmedAmount() {
+        return confirmedAmount;
+    }
+
+    public BigDecimal getRefundedAmount() {
+        return refundedAmount;
+    }
+
+    public Instant getConfirmedAt() {
+        return confirmedAt;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public long getVersion() {
+        return version;
+    }
+
     public static PaymentAttempt create(UUID society, UUID unit, UUID user, String ref, String key, String provider, BigDecimal amount) {
         PaymentAttempt p = new PaymentAttempt();
         p.societyId = society;

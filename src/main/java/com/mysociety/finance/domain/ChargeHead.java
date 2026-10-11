@@ -60,6 +60,26 @@ public class ChargeHead {
         return active;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public String getCalculationType() {
+        return calculationType;
+    }
+
+    public BigDecimal getTaxPercentage() {
+        return taxPercentage;
+    }
+
+    public boolean isRecurring() {
+        return recurring;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
     public static ChargeHead create(UUID societyId, String code, String name, BigDecimal amount) {
         ChargeHead c = new ChargeHead();
         c.societyId = societyId;

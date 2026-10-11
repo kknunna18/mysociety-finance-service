@@ -46,6 +46,11 @@ public class FinanceController {
         return service.createRun(context(auth, correlation), request.runNumber(), request.billingPeriod(), request.periodStart(), request.periodEnd(), request.dueDate());
     }
 
+    @GetMapping("/billing-runs")
+    public Page<BillingRun> billingRuns(Authentication auth, @PageableDefault(size = 25, sort = "createdAt", direction = Sort.Direction.DESC) Pageable page, @RequestHeader(value = CorrelationIdFilter.HEADER, required = false) String correlation) {
+        return service.runs(context(auth, correlation), page);
+    }
+
     @PostMapping("/billing-runs/{id}/publish")
     public BillingRun publishBillingRun(@PathVariable UUID id, Authentication auth, @RequestHeader(value = CorrelationIdFilter.HEADER, required = false) String correlation) {
         return service.publishRun(context(auth, correlation), id);
@@ -71,6 +76,11 @@ public class FinanceController {
     @ResponseStatus(HttpStatus.CREATED)
     public PaymentAttempt initiate(@RequestHeader("Idempotency-Key") @NotBlank @Size(max = 150) String key, @Valid @RequestBody PaymentRequest request, Authentication auth, @RequestHeader(value = CorrelationIdFilter.HEADER, required = false) String correlation) {
         return service.initiate(context(auth, correlation), request.unitId(), key, request.provider(), request.amount());
+    }
+
+    @GetMapping("/payments")
+    public Page<PaymentAttempt> payments(Authentication auth, @PageableDefault(size = 25, sort = "createdAt", direction = Sort.Direction.DESC) Pageable page, @RequestHeader(value = CorrelationIdFilter.HEADER, required = false) String correlation) {
+        return service.payments(context(auth, correlation), page);
     }
 
     @GetMapping("/payments/{id}")

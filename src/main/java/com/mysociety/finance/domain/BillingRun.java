@@ -55,6 +55,46 @@ public class BillingRun {
         return status;
     }
 
+    public String getRunNumber() {
+        return runNumber;
+    }
+
+    public String getBillingPeriod() {
+        return billingPeriod;
+    }
+
+    public LocalDate getPeriodStart() {
+        return periodStart;
+    }
+
+    public LocalDate getPeriodEnd() {
+        return periodEnd;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public int getTotalUnits() {
+        return totalUnits;
+    }
+
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public Instant getPublishedAt() {
+        return publishedAt;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public long getVersion() {
+        return version;
+    }
+
     public static BillingRun create(UUID societyId, String number, String period, LocalDate start, LocalDate end, LocalDate due, UUID user) {
         BillingRun r = new BillingRun();
         r.societyId = societyId;

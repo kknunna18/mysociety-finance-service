@@ -7,4 +7,6 @@ import java.util.*;
 
 public interface BillingRunRepository extends JpaRepository<BillingRun, UUID> {
     Optional<BillingRun> findByIdAndSocietyId(UUID id, UUID societyId);
+
+    org.springframework.data.domain.Page<BillingRun> findBySocietyId(UUID societyId, org.springframework.data.domain.Pageable pageable);
 }
