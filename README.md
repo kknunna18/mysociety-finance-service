@@ -10,7 +10,9 @@ Spring Boot 3 / Java 21 finance backend on port `8083` with base path `/api/v1`.
 2. Copy `.env.example` into your environment and supply a strong `JWT_HMAC_SECRET`.
 3. Run `gradlew.bat clean build` on Windows, then `gradlew.bat bootRun --args="--spring.profiles.active=local"`.
 
-The service uses `mysociety` schema and `ddl-auto=validate`; it never creates or updates the shared database schema.
+The service uses the `mysociety` schema and `ddl-auto=validate`; it never creates
+or updates the database schema. See [`database/README.md`](database/README.md)
+for migration ownership, external UUID validation, and idempotency details.
 
 ## APIs
 
