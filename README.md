@@ -34,3 +34,7 @@ The supplied DDL does not define an outbox table. The `TransactionalOutbox` port
 versioned Kafka-compatible event envelope but its default adapter only records safe metadata;
 deployments must provide a transactional, database-backed implementation and Kafka publisher
 against an approved shared-schema migration before enabling external event delivery.
+
+## Database
+
+Schema migrations and notes are in [database/](database/README.md).
